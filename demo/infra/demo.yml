@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo
+spec:
+  containers:
+    - name: demo
+      image: temp:v1
+      ports:
+        - containerPort: 8080
