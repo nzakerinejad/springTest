@@ -1,4 +1,7 @@
 - Using java=21.0.3-tem
+### Gradle
+-./gradlew build
+- ./gradlew bootRun
 
 
 ### You can launch postres with:
