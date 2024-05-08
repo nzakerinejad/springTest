@@ -36,8 +36,19 @@ docker run -p 80:80 \
 - docker network connect hassan boring_montalcini
 - docker network connect hassan zealous_saha
 
+
+## Running Docker Compose
+docker compose config
+docker compose up -d
+
+## Stopping Docker Compose
+docker compose down
+
+
+
 ## To Do:
 
 
 use DBeaver to connect to postgres running on docker
 connect to postgres from java
+docker compose
