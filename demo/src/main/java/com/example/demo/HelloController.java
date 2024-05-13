@@ -35,7 +35,7 @@ public class HelloController {
     }
 
     @PostMapping("/add")
-    public String Add() throws JsonProcessingException{
+    public String add() throws JsonProcessingException {
 //        ObjectMapper mapper = new ObjectMapper();
 //        if(user.getName() == null || user.getAge().equals(""))
 //            return "no user name or age!";
@@ -44,6 +44,17 @@ public class HelloController {
         user.setAge(45);
         mongoTemplate.insert(user);
         return "user has been added!";
+    }
+
+    @PostMapping("/save")
+    public String save(@RequestBody User user) throws JsonProcessingException {
+        if(user.getName() == null || user.getAge().equals(""))
+            return "no user name or age!";
+        User userToSave = new User();
+        userToSave.setName(user.getName());
+        userToSave.setAge(user.getAge());
+        mongoTemplate.insert(userToSave);
+        return "New user was added to the DB!";
     }
 
 }
