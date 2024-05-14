@@ -5,12 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -55,6 +57,15 @@ public class HelloController {
         userToSave.setAge(user.getAge());
         mongoTemplate.insert(userToSave);
         return "New user was added to the DB!";
+    }
+
+    @GetMapping("/all")
+    public String findAll(){
+        List<User> users = mongoTemplate.findAll(User.class);
+        List<String> names = new ArrayList<>();
+        for(User user : users)
+            names.add(user.getName());
+        return  names.toString();
     }
 
 }
