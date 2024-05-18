@@ -48,6 +48,15 @@ public class HelloController {
         return "user has been added!";
     }
 
+    @GetMapping("/all")
+    public String findAll(){
+        List<User> users = mongoTemplate.findAll(User.class);
+        List<String> names = new ArrayList<>();
+        for(User user : users)
+            names.add(user.getName());
+        return  names.toString();
+    }
+
     @PostMapping("/save")
     public String save(@RequestBody User user) throws JsonProcessingException {
         if(user.getName() == null || user.getAge().equals(""))
@@ -59,13 +68,15 @@ public class HelloController {
         return "New user was added to the DB!";
     }
 
-    @GetMapping("/all")
-    public String findAll(){
-        List<User> users = mongoTemplate.findAll(User.class);
-        List<String> names = new ArrayList<>();
-        for(User user : users)
-            names.add(user.getName());
-        return  names.toString();
+    @PostMapping("/story")
+    public String postStory(@RequestBody Story story) throws JsonProcessingException {
+        Story storyToPost = new Story();
+        storyToPost.setText(story.getText());
+        mongoTemplate.insert(storyToPost);
+
+        if(story == null) return "You did not write any post!";
+
+        return "OK";
     }
 
 }
